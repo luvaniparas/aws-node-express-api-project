@@ -1,0 +1,18 @@
+service: aws-node-express-api-project
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  environment:
+    PORT: ${env:DEBUG,0}
+    DB_URL: ${env:PR_DB_URL,"fallback value"}
+
+functions:
+  api:
+    handler: src/index.handler
+    events:
+      - httpApi: '*'
+
+plugins:
+  - serverless-offline
